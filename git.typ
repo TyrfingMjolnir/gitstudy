@@ -21,6 +21,32 @@ See @smartoslogo for details.
   target: figure.where(kind: table),
 )
 #pagebreak()
+== Git digging in non-branch commits
+```BASh
+git reflog --all
+git log --graph --reflog
+git graph --reflog
+gitk --reflog
+gitk --reflog --date-order --all
+```
+== If the repository itself is corrupted
+```BASh
+git fsck
+# Save the output to a file since it might take a minute.
+git fsck --unreachable > unreachable.txt
+# Note unreachable.txt now includes all unreachable blobs, trees, and commits.
+cat unreachable.txt | grep commit
+```
+== Alias copied from here: https://stackoverflow.com/questions/2092810/browse-orphaned-commits-in-git
+```BASh
+alias orphank = "!gitk --all --date-order 'git reflog | cut -c1-7'"&
+```
+== Never git pull
+```Sh
+git fetch
+git merge
+```
+
 == Git workflow for trees
 === 1. Create bare repository
 ```BASh
